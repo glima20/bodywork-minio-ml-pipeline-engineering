@@ -18,9 +18,11 @@ stages:
       max_completion_time_seconds: 15
       retries: 2
     secrets:
+      AWS_ENDPOINT_URL: aws-credentials
       AWS_ACCESS_KEY_ID: aws-credentials
       AWS_SECRET_ACCESS_KEY: aws-credentials
       AWS_DEFAULT_REGION: aws-credentials
+      AWS_SIGNATURE_VERSION: aws-credentials
   serve_model:
     executable_module_path: pipeline/serve_model.py
     args: ["bodywork-time-to-dispatch"]
@@ -38,8 +40,10 @@ stages:
       port: 8000
       ingress: true
     secrets:
+      AWS_ENDPOINT_URL: aws-credentials
       AWS_ACCESS_KEY_ID: aws-credentials
       AWS_SECRET_ACCESS_KEY: aws-credentials
       AWS_DEFAULT_REGION: aws-credentials
+      AWS_SIGNATURE_VERSION: aws-credentials
 logging:
   log_level: INFO

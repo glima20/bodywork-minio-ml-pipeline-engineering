@@ -1,6 +1,7 @@
 """
 Generic functions and models for interacting with AWS S3.
 """
+import os
 import pickle
 from datetime import datetime
 from pathlib import Path
@@ -11,10 +12,22 @@ from typing import Any, Optional
 import boto3 as aws
 from botocore.exceptions import ClientError
 from botocore.response import StreamingBody
+from botocore.client import Config
 
 FILE_FORMAT_EXTENSIONS = {"csv": "CSV", "parquet": "PARQUET", "pkl": "PICKLE"}
 
-s3_client = aws.client("s3")
+endpoint_url = os.environ['AWS_ENDPOINT_URL']
+aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
+aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
+region_name = os.environ['AWS_DEFAULT_REGION']
+signature_version = os.environ['AWS_SIGNATURE_VERSION']
+
+s3_client = aws.client("s3",
+                       endpoint_url=endpoint_url,
+                       aws_access_key_id=aws_access_key_id,
+                       aws_secret_access_key=aws_secret_access_key,
+                       region_name=region_name,
+                       config=Config(signature_version=signature_version))
 
 
 def put_object_to_s3(obj: Any, file_name: str, bucket: str, folder: str = "") -> None:
@@ -44,10 +57,10 @@ def put_object_to_s3(obj: Any, file_name: str, bucket: str, folder: str = "") ->
 
 
 def put_file_to_s3(
-    path_to_file: str,
-    bucket: str,
-    folder: str = "",
-    filename_override: Optional[str] = None,
+        path_to_file: str,
+        bucket: str,
+        folder: str = "",
+        filename_override: Optional[str] = None,
 ) -> None:
     """Upload a file to S3.
 
@@ -166,7 +179,7 @@ class S3TimestampedArtefact:
 
 
 def find_latest_artefact_on_s3(
-    file_format: str, bucket: str, folder: str = ""
+        file_format: str, bucket: str, folder: str = ""
 ) -> S3TimestampedArtefact:
     """Get the most recent timestamped artefact from an S3 folder.
 
