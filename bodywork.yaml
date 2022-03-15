@@ -46,4 +46,4 @@ stages:
       AWS_DEFAULT_REGION: aws-credentials
       AWS_SIGNATURE_VERSION: aws-credentials
 logging:
-  log_level: INFO
+  log_level: DEBUG
