@@ -11,6 +11,7 @@ stages:
       - numpy==1.21.0
       - pandas==1.2.5
       - scikit-learn==0.24.2
+      - boto3==1.21.19
     cpu_request: 0.5
     memory_request_mb: 100
     batch:
@@ -30,6 +31,7 @@ stages:
       - scikit-learn==0.24.2
       - fastapi==0.65.2
       - uvicorn==0.14.0
+      - boto3==1.21.19
     cpu_request: 0.25
     memory_request_mb: 100
     service:
