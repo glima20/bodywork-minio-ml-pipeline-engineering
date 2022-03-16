@@ -1,49 +1,48 @@
 version: "1.0"
 project:
-  name: time-to-dispatch
-  docker_image: bodyworkml/bodywork-core:2.1.7
-  DAG: train_model >> serve_model
+  name: bodywork-mlflow-demo
+  docker_image: bodyworkml/bodywork-core:latest
+  DAG: train_model >> scoring_service
 stages:
   train_model:
     executable_module_path: pipeline/train_model.py
-    args: ["bodywork-time-to-dispatch", "0.9", "0.8"]
     requirements:
-      - numpy==1.21.0
-      - pandas==1.2.5
-      - scikit-learn==0.24.2
-      - boto3==1.21.19
+      - boto3==1.16.15
+      - mlflow==1.17.0
+      - numpy==1.19.4
+      - pandas==1.1.4
+      - scikit-learn==0.23.2
+    secrets:
+      AWS_ACCESS_KEY_ID: mlflow-credentials
+      AWS_SECRET_ACCESS_KEY: mlflow-credentials
+      AWS_DEFAULT_REGION: mlflow-credentials
+      MLFLOW_TRACKING_URI: mlflow-credentials
+      MLFLOW_S3_ENDPOINT_URL: mlflow-credentials
     cpu_request: 0.5
     memory_request_mb: 100
     batch:
-      max_completion_time_seconds: 15
-      retries: 2
-    secrets:
-      AWS_ENDPOINT_URL: aws-credentials
-      AWS_ACCESS_KEY_ID: aws-credentials
-      AWS_SECRET_ACCESS_KEY: aws-credentials
-      AWS_DEFAULT_REGION: aws-credentials
-      AWS_SIGNATURE_VERSION: aws-credentials
-  serve_model:
+      max_completion_time_seconds: 30
+      retries: 1
+  scoring_service:
     executable_module_path: pipeline/serve_model.py
-    args: ["bodywork-time-to-dispatch"]
     requirements:
-      - numpy==1.21.0
-      - scikit-learn==0.24.2
-      - fastapi==0.65.2
-      - uvicorn==0.14.0
-      - boto3==1.21.19
+      - boto3==1.16.15
+      - Flask==1.1.2
+      - mlflow==1.17.0
+      - numpy==1.19.4
+      - scikit-learn==0.23.2
+    secrets:
+      AWS_ACCESS_KEY_ID: mlflow-credentials
+      AWS_SECRET_ACCESS_KEY: mlflow-credentials
+      AWS_DEFAULT_REGION: mlflow-credentials
+      MLFLOW_TRACKING_URI: mlflow-credentials
+      MLFLOW_S3_ENDPOINT_URL: mlflow-credentials
     cpu_request: 0.25
     memory_request_mb: 100
     service:
-      max_startup_time_seconds: 15
+      max_startup_time_seconds: 30
       replicas: 2
-      port: 8000
+      port: 5000
       ingress: true
-    secrets:
-      AWS_ENDPOINT_URL: aws-credentials
-      AWS_ACCESS_KEY_ID: aws-credentials
-      AWS_SECRET_ACCESS_KEY: aws-credentials
-      AWS_DEFAULT_REGION: aws-credentials
-      AWS_SIGNATURE_VERSION: aws-credentials
 logging:
   log_level: DEBUG
