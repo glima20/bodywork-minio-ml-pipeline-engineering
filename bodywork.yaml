@@ -6,7 +6,7 @@ project:
   DAG: train_model
 stages:
   train_model:
-    executable_module_path: pipeline/test.py
+    executable_module_path: pipeline/train_model.py
     requirements:
       - boto3==1.16.15
       - mlflow==1.17.0
