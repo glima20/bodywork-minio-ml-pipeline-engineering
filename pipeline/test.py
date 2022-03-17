@@ -25,7 +25,7 @@ log = configure_logger()
 def main() -> None:
     """Main script to be executed."""
     try:
-        configure_mlflow("mau")
+        # configure_mlflow("mau")
         data = download_dataset(DATA_URL)
         log.info("data:{}".format(len(data)))
     except Exception as e:
