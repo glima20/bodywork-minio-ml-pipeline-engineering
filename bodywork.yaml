@@ -46,4 +46,4 @@ stages:
       port: 5000
       ingress: true
 logging:
-  log_level: INFO
+  log_level: DEBUG
