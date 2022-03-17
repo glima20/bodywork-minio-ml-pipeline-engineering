@@ -12,8 +12,8 @@ from sklearn.tree import DecisionTreeClassifier
 
 from utils import configure_logger, configure_mlflow
 
-MLFLOW_EXPERIMENT = "iris-classifier"
-MLFLOW_MODEL_NAME = f"{MLFLOW_EXPERIMENT}--sklearn-decision-tree"
+# MLFLOW_EXPERIMENT = "iris-classifier"
+# MLFLOW_MODEL_NAME = f"{MLFLOW_EXPERIMENT}--sklearn-decision-tree"
 DATA_URL = (
     "http://bodywork-ml-pipeline-project.s3.eu-west-2.amazonaws.com"
     "/data/iris_classification_data.csv"
@@ -25,7 +25,7 @@ log = configure_logger()
 def main() -> None:
     """Main script to be executed."""
     try:
-        configure_mlflow(MLFLOW_EXPERIMENT)
+        configure_mlflow("mau")
         data = download_dataset(DATA_URL)
         log.info("data:{}".format(len(data)))
     except Exception as e:
