@@ -43,5 +43,7 @@ def configure_mlflow(experiment_name: str) -> None:
     ):
         del os.environ["MLFLOW_S3_ENDPOINT_URL"]
 
+    print(mlflow_tracking_uri)
+    print(experiment_name)
     mlflow.set_tracking_uri(mlflow_tracking_uri)
     mlflow.set_experiment(experiment_name)
