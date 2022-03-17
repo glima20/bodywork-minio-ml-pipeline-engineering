@@ -36,9 +36,7 @@ def main() -> None:
         configure_mlflow(MLFLOW_EXPERIMENT)
         data = download_dataset(DATA_URL)
         features, labels = pre_process_data(data)
-        print(features)
-        print(labels)
-        #train_model(features, labels)
+        train_model(features, labels)
     except Exception as e:
         msg = f"training stage failed with exception: {e}"
         log.error(msg)
