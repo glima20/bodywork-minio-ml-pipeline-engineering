@@ -1,8 +1,8 @@
-version: "1.0"
-project:
+version: "1.1"
+pipelines:
   name: bodywork-mlflow-pipeline-iris
-  #docker_image: bodyworkml/bodywork-core:3.0.0
-  docker_image: bodyworkml/bodywork-core:2.1.7
+  docker_image: bodyworkml/bodywork-core:3.0.0
+  #docker_image: bodyworkml/bodywork-core:2.1.7
   # DAG: train_model >> scoring_service
   DAG: train_model
 stages:
