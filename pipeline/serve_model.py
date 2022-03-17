@@ -90,7 +90,7 @@ if __name__ == "__main__":
         model = get_model()
         print(f"Loaded model={model}.")
         print("Starting API server.")
-        app.run(host="0.0.0.0", port=5000)
+        app.run(host="0.0.0.0", port=5002)
     except Exception as e:
         msg = f"scoring-service failed with exception: {e}"
         log.error(msg)
