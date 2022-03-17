@@ -26,7 +26,8 @@ def main() -> None:
     """Main script to be executed."""
     try:
         # configure_mlflow("mau")
-        data = download_dataset(DATA_URL)
+        #data = download_dataset(DATA_URL)
+        data = ["ciao"]
         log.info("data:{}".format(len(data)))
     except Exception as e:
         msg = f"training stage failed with exception: {e}"
@@ -35,8 +36,7 @@ def main() -> None:
 
 
 def download_dataset(url: str) -> pd.DataFrame:
-    """Get data from cloud object storage."""
-    log.info(f"Downloading training data from {DATA_URL}.")
+    log.info("Downloading training data from {}.".format(DATA_URL))
     data_file = urlopen(url)
     return pd.read_csv(data_file)
 

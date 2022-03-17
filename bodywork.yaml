@@ -13,12 +13,11 @@ stages:
       - boto3==1.16.15
       - joblib==0.17.0
       - pandas==1.1.4
-      - scikit-learn==0.23.2
     cpu_request: 0.5
-    memory_request_mb: 100
+    memory_request_mb: 200
     batch:
-      max_completion_time_seconds: 30
-      retries: 2
+      max_completion_time_seconds: 60
+      retries: 1
 
   stage_2_scoring_service:
     executable_module_path: pipeline/serve_model.py
@@ -36,4 +35,4 @@ stages:
       ingress: true
 
 logging:
-  log_level: INFO
+  log_level: DEBUG
