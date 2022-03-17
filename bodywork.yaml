@@ -1,44 +1,32 @@
 version: "1.1"
-pipelines:
-  name: bodywork-mlflow-pipeline-iris
-  docker_image: bodyworkml/bodywork-core:3.0.0
-  #docker_image: bodyworkml/bodywork-core:2.1.7
-  # DAG: train_model >> scoring_service
-  DAG: train_model
+
+pipeline:
+  name: bodywork-ml-pipeline-project
+  docker_image: bodyworkml/bodywork-core:latest
+  # DAG: stage_1_train_model >> stage_2_scoring_service
+  DAG: stage_1_train_model
+
 stages:
-  train_model:
+  stage_1_train_model:
     executable_module_path: pipeline/test.py
     requirements:
       - boto3==1.16.15
-      - mlflow==1.17.0
-      - numpy==1.19.4
+      - joblib==0.17.0
       - pandas==1.1.4
       - scikit-learn==0.23.2
-    secrets:
-      AWS_ACCESS_KEY_ID: mlflow-credentials
-      AWS_SECRET_ACCESS_KEY: mlflow-credentials
-      AWS_DEFAULT_REGION: mlflow-credentials
-      MLFLOW_TRACKING_URI: mlflow-credentials
-      MLFLOW_S3_ENDPOINT_URL: mlflow-credentials
     cpu_request: 0.5
     memory_request_mb: 100
     batch:
       max_completion_time_seconds: 30
-      retries: 1
-  scoring_service:
+      retries: 2
+
+  stage_2_scoring_service:
     executable_module_path: pipeline/serve_model.py
     requirements:
-      - boto3==1.16.15
       - Flask==1.1.2
-      - mlflow==1.17.0
+      - joblib==0.17.0
       - numpy==1.19.4
       - scikit-learn==0.23.2
-    secrets:
-      AWS_ACCESS_KEY_ID: mlflow-credentials
-      AWS_SECRET_ACCESS_KEY: mlflow-credentials
-      AWS_DEFAULT_REGION: mlflow-credentials
-      MLFLOW_TRACKING_URI: mlflow-credentials
-      MLFLOW_S3_ENDPOINT_URL: mlflow-credentials
     cpu_request: 0.25
     memory_request_mb: 100
     service:
@@ -46,5 +34,6 @@ stages:
       replicas: 2
       port: 5000
       ingress: true
+
 logging:
-  log_level: DEBUG
+  log_level: INFO
