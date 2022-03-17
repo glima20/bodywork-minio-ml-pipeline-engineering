@@ -1,5 +1,5 @@
-version: "1.1"
-pipeline:
+version: "1.0"
+project:
   name: bodywork-mlflow-demo
   docker_image: bodyworkml/bodywork-core:latest
   DAG: train_model >> scoring_service
@@ -45,4 +45,4 @@ stages:
       port: 5000
       ingress: true
 logging:
-  log_level: DEBUG
+  log_level: INFO
