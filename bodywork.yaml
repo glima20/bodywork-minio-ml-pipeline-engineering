@@ -2,7 +2,8 @@ version: "1.0"
 project:
   name: bodywork-mlflow-pipeline-iris
   docker_image: bodyworkml/bodywork-core:latest
-  DAG: train_model >> scoring_service
+  # DAG: train_model >> scoring_service
+  DAG: test
 stages:
   train_model:
     executable_module_path: pipeline/train_model.py
