@@ -28,9 +28,11 @@ TRAINED_MODEL_FILENAME = 'iris_tree_classifier.joblib'
 def main() -> None:
     """Main script to be executed."""
     data = download_dataset(DATA_URL)
-    features, labels = pre_process_data(data)
-    trained_model = train_model(features, labels)
-    persist_model(trained_model)
+    print("data: {}".format(len(data)))
+    #features, labels = pre_process_data(data)
+    #trained_model = train_model(features, labels)
+    #persist_model(trained_model)
+    print("DONE")
 
 
 def download_dataset(url: str) -> pd.DataFrame:
