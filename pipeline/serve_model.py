@@ -50,10 +50,10 @@ def score() -> Response:
 def get_model() -> BaseEstimator:
     """Get model from cloud object storage."""
     configure_mlflow(MLFLOW_EXPERIMENT)
-    model = mlflow.sklearn.load_model(
-        model_uri=f"models:/{MLFLOW_MODEL_NAME}/Production"
-    )
-    return model
+    print(f"models:/{MLFLOW_MODEL_NAME}/Production")
+    # model = mlflow.sklearn.load_model(model_uri=f"models:/{MLFLOW_MODEL_NAME}/Production")
+    model = ""
+    return f"models:/{MLFLOW_MODEL_NAME}/Production"
 
 
 def make_features_from_request_data(request_data: Dict[str, float]) -> np.ndarray:
