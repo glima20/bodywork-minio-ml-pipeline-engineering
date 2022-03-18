@@ -39,15 +39,14 @@ app = Flask(__name__)
 log = configure_logger()
 
 
-@app.route("/iris/v1/", methods=["POST"])
+@app.route("/iris/v1/info", methods=["GET"])
 def score() -> Response:
-    """Iris species classification API endpoint"""
     log.info("logging from the root logger")
     message = "FLASK running on Uvicorn with Gunicorn. Using Python: '{}' and version API: '{}'".format(sys.version,
                                                                                                           os.getenv(
                                                                                                               "API_VERSION",
                                                                                                               "1.0"))
-    response_data = jsonify({"model_info": str(message)})
+    response_data = jsonify({"model_info": message})
     return make_response(response_data)
 
 
