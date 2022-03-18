@@ -40,7 +40,7 @@ log = configure_logger()
 
 
 @app.route("/iris/v1/info", methods=["GET"])
-def score() -> Response:
+def info() -> Response:
     log.info("logging from the root logger")
     message = "FLASK running on Uvicorn with Gunicorn. Using Python: '{}' and version API: '{}'".format(sys.version,
                                                                                                           os.getenv(
