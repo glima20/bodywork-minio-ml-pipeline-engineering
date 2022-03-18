@@ -42,7 +42,7 @@ stages:
     memory_request_mb: 100
     service:
       max_startup_time_seconds: 30
-      replicas: 2
+      replicas: 1
       port: 5000
       ingress: true
 logging:
